@@ -1,0 +1,78 @@
+{
+    "doctype": "Workflow",
+    "name": "Customer Visit Request Workflow",
+    "workflow_name": "Customer Visit Request Workflow",
+    "document_type": "Customer Visit Request",
+    "is_active": 1,
+    "workflow_state_field": "workflow_state",
+    "allow_edit": "System Manager",
+    "states": [
+        {
+            "state": "Draft",
+            "doc_status": 0,
+            "update_field": "workflow_state",
+            "update_value": "Draft",
+            "style": "Primary",
+            "allow_edit": "System Manager",
+            "is_initial_state": 1
+        },
+        {
+            "state": "Approved",
+            "doc_status": 0,
+            "update_field": "workflow_state",
+            "update_value": "Approved",
+            "style": "Success",
+            "allow_edit": "System Manager"
+        },
+        {
+            "state": "Rejected",
+            "doc_status": 0,
+            "update_field": "workflow_state",
+            "update_value": "Rejected",
+            "style": "Danger",
+            "allow_edit": "System Manager"
+        },
+        {
+            "state": "Completed",
+            "doc_status": 0,
+            "update_field": "workflow_state",
+            "update_value": "Completed",
+            "style": "Info",
+            "allow_edit": "System Manager"
+        },
+        {
+            "state": "Cancelled",
+            "doc_status": 0,
+            "update_field": "workflow_state",
+            "update_value": "Cancelled",
+            "style": "Warning",
+            "allow_edit": "System Manager"
+        }
+    ],
+    "transitions": [
+        {
+            "state": "Draft",
+            "action": "Approve",
+            "next_state": "Approved",
+            "allowed": "System Manager"
+        },
+        {
+            "state": "Draft",
+            "action": "Reject",
+            "next_state": "Rejected",
+            "allowed": "System Manager"
+        },
+        {
+            "state": "Approved",
+            "action": "Complete",
+            "next_state": "Completed",
+            "allowed": "System Manager"
+        },
+        {
+            "state": "Approved",
+            "action": "Cancel",
+            "next_state": "Cancelled",
+            "allowed": "System Manager"
+        }
+    ]
+}
