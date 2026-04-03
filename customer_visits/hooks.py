@@ -11,6 +11,10 @@ doc_events = {
     }
 }
 
+doctype_js = {
+    "Customer": "public/js/customer.js"
+}
+
 fixtures = [
 	"Workflow State",
 	{"doctype": "Workflow", "filters": [["document_type", "=", "Customer Visit Request"]]},
