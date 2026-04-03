@@ -5,6 +5,24 @@ app_description = "App for scheduling customer visits"
 app_email = "ahmed@test.com"
 app_license = "mit"
 
+doc_events = {
+    "Customer": {
+        "on_change": "customer_visits.customer_visit_request.cancel_visits_on_territory_change"
+    }
+}
+
+fixtures = [
+	"Workflow State",
+	{"doctype": "Workflow", "filters": [["document_type", "=", "Customer Visit Request"]]},
+    "Custom Field",
+    "Client Script",
+]
+
+override_doctype_class = {
+    "Customer": "customer_visits.custom_overrides.customer.CustomCustomer"
+}
+
+after_migrate = ["customer_visits.install.ensure_workflow_actions"]
 # Apps
 # ------------------
 

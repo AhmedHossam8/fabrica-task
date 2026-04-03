@@ -1,0 +1,10 @@
+[
+    {
+        "doctype": "Client Script",
+        "name": "Customer Visit Buttons",
+        "dt": "Customer",
+        "script_type": "Form",
+        "enabled": 1,
+        "script": "frappe.ui.form.on('Customer', {\n    refresh: function(frm) {\n        if (frm.is_new()) return;\n\n        frappe.call({\n            method: 'frappe.client.get_list',\n            args: {\n                doctype: 'Customer Visit Request',\n                filters: [\n                    ['customer', '=', frm.doc.name],\n                    ['workflow_state', 'in', ['Draft', 'Approved']]\n                ],\n                fields: ['name'],\n                limit: 1\n            },\n            callback: function(r) {\n                if (r.message && r.message.length > 0) {\n                    var visit_name = r.message[0].name;\n                    frm.add_custom_button('View Scheduled Visit Request', function() {\n                        frappe.set_route('Form', 'Customer Visit Request', visit_name);\n                    }, 'Visits');\n                } else {\n                    frm.add_custom_button('Create Visit Request', function() {\n                        frappe.new_doc('Customer Visit Request', {\n                            customer: frm.doc.name\n                        });\n                    }, 'Visits');\n                }\n            }\n        });\n    }\n});"
+    }
+]
